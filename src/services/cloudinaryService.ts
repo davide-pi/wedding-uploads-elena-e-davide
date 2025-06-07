@@ -1,6 +1,6 @@
 // Cloudinary configuration
-const CLOUD_NAME = import.meta.env.NETLIFY_CLOUD_NAME || "";
-const UPLOAD_PRESET = import.meta.env.NETLIFY_UPLOAD_PRESET || "";
+const CLOUD_NAME = import.meta.env.CLOUDINARY_CLOUD_NAME || "";
+const UPLOAD_PRESET = import.meta.env.CLOUDINARY_UPLOAD_PRESET || "";
 
 /**
  * Resource types in Cloudinary
