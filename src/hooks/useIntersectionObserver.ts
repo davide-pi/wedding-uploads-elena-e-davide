@@ -12,6 +12,12 @@ interface IntersectionObserverOptions {
    * @default 0
    */
   threshold?: number | number[];
+
+  /**
+   * Whether to keep items visible once they've been observed
+   * @default true
+   */
+  keepVisible?: boolean;
 }
 
 /**
@@ -24,24 +30,50 @@ export const useIntersectionObserver = (
   options: IntersectionObserverOptions = {}
 ) => {
   const [visibleItems, setVisibleItems] = useState<string[]>([]);
+  // Keep track of items that were visible but aren't anymore
+  const [previouslyVisibleItems, setPreviouslyVisibleItems] = useState<
+    string[]
+  >([]);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const itemRefs = useRef<Map<string, HTMLElement>>(new Map());
+
+  // Merge options with defaults
+  const { rootMargin = "200px", threshold = 0, keepVisible = true } = options;
 
   // Set up the intersection observer
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
-        const newVisible = entries
-          .filter((entry) => entry.isIntersecting)
-          .map((entry) => entry.target.id);
+        const newVisible: string[] = [];
+        const newInvisible: string[] = [];
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            newVisible.push(entry.target.id);
+          } else if (!keepVisible) {
+            // Only track items becoming invisible if keepVisible is false
+            newInvisible.push(entry.target.id);
+          }
+        });
 
         if (newVisible.length > 0) {
           setVisibleItems((prev) => [...new Set([...prev, ...newVisible])]);
         }
+
+        if (!keepVisible && newInvisible.length > 0) {
+          setVisibleItems((prev) =>
+            prev.filter((id) => !newInvisible.includes(id))
+          );
+
+          // Move items to previouslyVisible when they go out of view
+          setPreviouslyVisibleItems((prev) => [
+            ...new Set([...prev, ...newInvisible]),
+          ]);
+        }
       },
       {
-        rootMargin: options.rootMargin || "200px",
-        threshold: options.threshold || 0,
+        rootMargin,
+        threshold,
       }
     );
 
@@ -51,7 +83,7 @@ export const useIntersectionObserver = (
         observerRef.current.disconnect();
       }
     };
-  }, [options.rootMargin, options.threshold]);
+  }, [rootMargin, threshold, keepVisible]);
 
   // Handle observing new elements
   const setItemRef = useCallback(
@@ -79,11 +111,16 @@ export const useIntersectionObserver = (
 
   return {
     visibleItems,
+    previouslyVisibleItems,
     setItemRef,
     unobserveItem,
     isVisible: useCallback(
       (id: string) => visibleItems.includes(id),
       [visibleItems]
+    ),
+    wasVisible: useCallback(
+      (id: string) => previouslyVisibleItems.includes(id),
+      [previouslyVisibleItems]
     ),
   };
 };

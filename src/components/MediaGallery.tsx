@@ -6,6 +6,7 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useMedia } from '../hooks/useMedia';
 import { useMediaModal } from '../hooks/useMediaModal';
 import EmptyMediaState from './EmptyMediaState';
+import MediaCardSkeleton from './MediaCardSkeleton';
 import MediaItem from './MediaItem';
 import MediaModal from './MediaModal';
 
@@ -19,6 +20,9 @@ const BREAKPOINT_COLUMNS = {
   320: 1
 };
 
+// Number of skeleton cards to show during loading
+const SKELETON_COUNT = 8;
+
 /**
  * MediaGallery component displays a responsive masonry grid of media items with lazy loading
  *
@@ -28,6 +32,7 @@ const BREAKPOINT_COLUMNS = {
  * - Modal for viewing images in full screen
  * - Optimized performance with memoization
  * - Empty state handling when no media is available
+ * - Loading skeletons for initial load
  *
  * @example
  * ```tsx
@@ -37,12 +42,16 @@ const BREAKPOINT_COLUMNS = {
  * @returns A responsive media gallery with lazy-loaded images
  */
 const MediaGallery: React.FC = () => {
-  const { sortedMedia } = useMedia();
+  const { sortedMedia, isLoading } = useMedia();
   const { t } = useTranslation();
 
-  // Use custom hooks for better separation of concerns
-  const { setItemRef, isVisible } = useIntersectionObserver({
-    rootMargin: '200px'
+  // Use custom hooks for better separation of concerns with enhanced options
+  // keepVisible: false - means we track when items leave viewport
+  // rootMargin: '400px' - load images when they're within 400px of viewport (preload)
+  const { setItemRef, isVisible, wasVisible } = useIntersectionObserver({
+    rootMargin: '400px',
+    threshold: 0,
+    keepVisible: false
   });
 
   const { selectedMedia, openModal, closeModal } = useMediaModal();
@@ -57,6 +66,19 @@ const MediaGallery: React.FC = () => {
     );
   }, [selectedMedia, closeModal]);
 
+  // Generate an array of skeleton loaders with varied aspect ratios
+  const skeletonLoaders = useMemo(() => {
+    return Array.from({ length: SKELETON_COUNT }).map((_, index) => {
+      // Create a deterministic but varied set of skeletons
+      const aspectRatio = index % 3 === 0 ? 'portrait' : (index % 3 === 1 ? 'square' : 'landscape');
+      return (
+        <div key={`skeleton-${index}`} className="mb-4 sm:mb-5 animate-slide-up">
+          <MediaCardSkeleton aspectRatio={aspectRatio} />
+        </div>
+      );
+    });
+  }, []);
+
   return (
     <div className="animate-fade-in">
       <div className="relative font-serif text-sage-800 mb-6 text-center flex flex-col items-center ">
@@ -69,7 +91,15 @@ const MediaGallery: React.FC = () => {
         </span>
       </div>
 
-      {sortedMedia.length === 0 ? (
+      {isLoading ? (
+        <Masonry
+          breakpointCols={BREAKPOINT_COLUMNS}
+          className="flex w-auto -ml-3 md:-ml-4"
+          columnClassName="pl-3 md:pl-4 bg-clip-padding"
+        >
+          {skeletonLoaders}
+        </Masonry>
+      ) : sortedMedia.length === 0 ? (
         <EmptyMediaState />
       ) : (
         <Masonry
@@ -77,13 +107,15 @@ const MediaGallery: React.FC = () => {
           className="flex w-auto -ml-3 md:-ml-4"
           columnClassName="pl-3 md:pl-4 bg-clip-padding"
         >
-          {sortedMedia.map((media) => (
+          {sortedMedia.map((media, index) => (
             <MediaItem
               key={media.id}
               media={media}
               isVisible={isVisible(media.id)}
+              wasVisible={wasVisible(media.id)}
               onClick={openModal}
               setItemRef={setItemRef}
+              index={index}
             />
           ))}
         </Masonry>

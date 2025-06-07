@@ -9,7 +9,8 @@ interface MediaContextType {
   uploadMedia: (file: File, caption?: string, submitterName?: string) => Promise<void>;
   uploadMultipleFiles: (files: File[], caption?: string, submitterName?: string) => Promise<void>;
   sortedMedia: Media[];
-  progress: number; // <-- Add progress to context type
+  progress: number;
+  isLoading: boolean; // Added loading state
 }
 
 // Export the context for use in the hook file
@@ -22,7 +23,8 @@ interface MediaProviderProps {
 export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
   const [media, setMedia] = useState<Media[]>([]);
   const [uploadState, setUploadState] = useState<UploadState>('idle');
-  const [progress, setProgress] = useState<number>(0); // <-- Add progress state
+  const [progress, setProgress] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true); // Added isLoading state
   const { showNotification } = useNotification();
 
   // Transform CloudinaryResource to Media
@@ -64,6 +66,7 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
   // Fetch media directly from Cloudinary
   useEffect(() => {
     const loadMedia = async () => {
+      setIsLoading(true); // Set loading to true when starting to load media
       try {
         const resources = await fetchWeddingMedia();
         const fetchedMedia = resources.map(createMediaFromCloudinaryResource);
@@ -71,6 +74,8 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
       } catch (error) {
         console.error('Error loading media:', error);
         showNotification('error', error instanceof Error ? error.message : 'Failed to load media', 3000);
+      } finally {
+        setIsLoading(false); // Set loading to false after media is loaded or if there is an error
       }
     };
 
@@ -141,7 +146,8 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
         uploadMedia: uploadSingle,
         uploadMultipleFiles,
         sortedMedia,
-        progress, // <-- Provide progress
+        progress,
+        isLoading, // Provide loading state
       }}
     >
       {children}
