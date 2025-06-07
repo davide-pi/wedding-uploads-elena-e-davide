@@ -107,7 +107,7 @@ const MediaGallery: React.FC = () => {
           className="flex w-auto -ml-3 md:-ml-4"
           columnClassName="pl-3 md:pl-4 bg-clip-padding"
         >
-          {sortedMedia.map((media) => (
+          {sortedMedia.map((media, index) => (
             <MediaItem
               key={media.id}
               media={media}
@@ -115,6 +115,7 @@ const MediaGallery: React.FC = () => {
               wasVisible={wasVisible(media.id)}
               onClick={openModal}
               setItemRef={setItemRef}
+              index={index}
             />
           ))}
         </Masonry>

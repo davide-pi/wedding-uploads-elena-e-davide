@@ -9,6 +9,7 @@ interface MediaItemProps {
   wasVisible?: boolean;
   onClick: (media: Media) => void;
   setItemRef: (id: string, element: HTMLDivElement | null) => void;
+  index?: number; // Added for staggered animations
 }
 
 /**
@@ -20,7 +21,8 @@ const MediaItem: React.FC<MediaItemProps> = ({
   isVisible,
   wasVisible = false,
   onClick,
-  setItemRef
+  setItemRef,
+  index = 0
 }) => {
   const itemRef = useRef<HTMLDivElement | null>(null);
 
@@ -28,11 +30,19 @@ const MediaItem: React.FC<MediaItemProps> = ({
   // This prevents images from unloading when scrolling away
   const shouldShowMedia = isVisible || wasVisible;
 
+  // Calculate staggered animation delay based on index
+  const getAnimationDelay = () => {
+    const baseDelay = 100; // Base delay in milliseconds
+    const staggerDelay = (index % 12) * baseDelay; // Stagger up to 12 items
+    return `${staggerDelay}ms`;
+  };
+
   return (
     <div
       key={media.id}
       id={media.id}
-      className="mb-4 sm:mb-5 animate-slide-up transform transition-transform duration-300 hover:translate-y-[-2px]"
+      className="mb-4 sm:mb-5 transform"
+      style={{ animationDelay: getAnimationDelay() }}
       ref={(el) => {
         itemRef.current = el;
         setItemRef(media.id, el);

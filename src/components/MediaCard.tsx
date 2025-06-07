@@ -64,13 +64,23 @@ const MediaCard: React.FC<MediaCardProps> = ({
 
   return (
     <div
-      className="bg-white/95 backdrop-blur-sm rounded-lg shadow-md overflow-hidden transition-all hover:shadow-xl hover:scale-[1.01] cursor-pointer group border border-beige-100"
+      className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-md overflow-hidden cursor-pointer group border border-beige-100 transition-all transform
+        ${isVisible ? 'animate-pop-in opacity-100 scale-100' : 'opacity-0 scale-95'}
+        hover:shadow-xl hover:scale-[1.01]`}
       onClick={onClick}
     >
       <div className="relative overflow-hidden">
-        {/* Loading placeholder - shows until media is loaded */}
+        {/* Enhanced loading placeholder - shows until media is loaded */}
         {!isMediaLoaded && (
-          <div className="absolute inset-0 bg-gradient-to-r from-sage-100/60 to-beige-100/60 animate-pulse z-10"></div>
+          <div className="absolute inset-0 z-10">
+            {/* Shimmer background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-sage-100/60 via-beige-200/70 to-sage-100/60 bg-[length:400%_100%] animate-shimmer"></div>
+
+            {/* Loading spinner */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full border-4 border-beige-200 border-t-sage-400 animate-spin"></div>
+            </div>
+          </div>
         )}
 
         {media.mediaType === 'video' ? (
@@ -78,15 +88,18 @@ const MediaCard: React.FC<MediaCardProps> = ({
             {/* Low-res placeholder for videos */}
             {!videoLoaded && (
               <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat z-5"
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat z-5 overflow-hidden"
                 style={{ backgroundImage: getPosterUrl() ? `url(${getPosterUrl()})` : undefined }}
-              />
+              >
+                {/* Video loading animation overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-beige-50/30 to-sage-100/40 animate-photo-loading"></div>
+              </div>
             )}
 
             {shouldLoad && (
               <video
                 src={media.url}
-                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${!videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105 ${!videoLoaded ? 'opacity-0 scale-[1.03] blur-sm' : 'opacity-100 scale-100 blur-0'}`}
                 poster={getPosterUrl()}
                 preload="metadata"
                 controls={false}
@@ -116,7 +129,7 @@ const MediaCard: React.FC<MediaCardProps> = ({
               <img
                 src={media.url}
                 alt={media.caption}
-                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${!imageLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105 ${!imageLoaded ? 'opacity-0 scale-[1.03] blur-sm' : 'opacity-100 scale-100 blur-0'}`}
                 loading="lazy"
                 onLoad={() => setImageLoaded(true)}
               />
