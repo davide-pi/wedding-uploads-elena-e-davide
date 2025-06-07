@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: "Lato", sans-serif;
+    }
+
+    .font-serif {
+        font-family: "Playfair Display", serif;
+    }
+
+    .font-cursive {
+        font-family: "Dancing Script", cursive;
+    }
+
+    /* Mobile-first text adjustments */
+    @media (max-width: 768px) {
+        button, a {
+            /* Increase tap target size on mobile */
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        input, textarea, select {
+            font-size: 16px !important; /* Prevent zoom on iOS */
+        }
+    }
+}
+
+@layer utilities {
+    .animation-delay-300 {
+        animation-delay: 300ms;
+    }
+
+    .animation-delay-600 {
+        animation-delay: 600ms;
+    }
+
+    .animation-delay-900 {
+        animation-delay: 900ms;
+    }
+
+    .animation-delay-1000 {
+        animation-delay: 1000ms;
+    }
+
+    .animation-delay-1500 {
+        animation-delay: 1500ms;
+    }
+
+    /* Mobile touch-friendly utilities */
+    .touch-scale {
+        transition: transform 0.2s ease;
+    }
+
+    .touch-scale:active {
+        transform: scale(0.97);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 3s infinite;
+}
+
+/* Safe area insets for modern mobile devices */
+@supports(padding: max(0px)) {
+    body {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
