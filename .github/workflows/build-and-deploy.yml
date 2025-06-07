@@ -64,7 +64,7 @@ jobs:
           path: "./dist"
 
       - name: Deploy preview to Netlify
-        if: github.ref == 'refs/heads/main'
+        # if: github.ref == 'refs/heads/main'
         uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: "./dist"
