@@ -33,14 +33,14 @@ const MediaCardSkeleton: React.FC<MediaCardSkeletonProps> = ({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-lg shadow-md overflow-hidden border border-beige-100 transform transition-all">
+    <div className="bg-white/95 backdrop-blur-xs rounded-lg shadow-md overflow-hidden border border-beige-100 transform transition-all">
       {/* Image placeholder with aspect ratio and shimmer effect */}
       <div className="relative overflow-hidden">
         <div
-          className={`w-full ${getPaddingBottom()} bg-gradient-to-r from-sage-100/60 via-beige-200/70 to-sage-100/60 bg-[length:400%_100%] animate-shimmer`}
+          className={`w-full ${getPaddingBottom()} bg-linear-to-r from-sage-100/60 via-beige-200/70 to-sage-100/60 bg-size-[400%_100%] animate-shimmer`}
         >
           {/* Photo loading animation overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-sage-200/20 animate-photo-loading"></div>
+          <div className="absolute inset-0 bg-linear-to-br from-white/10 to-sage-200/20 animate-photo-loading"></div>
 
           {/* Center loading indicator */}
           <div className="absolute inset-0 flex items-center justify-center">
@@ -50,17 +50,17 @@ const MediaCardSkeleton: React.FC<MediaCardSkeletonProps> = ({
       </div>
 
       {/* Info bar placeholder with shimmer effect */}
-      <div className="p-3 bg-gradient-to-br from-sage-50/50 to-beige-50/30">
+      <div className="p-3 bg-linear-to-br from-sage-50/50 to-beige-50/30">
         <div className="flex items-center justify-between">
           {/* Username placeholder */}
           <div className="flex items-center">
             <div className="w-4 h-4 rounded-full bg-beige-200 animate-skeleton-pulse mr-1"></div>
-            <div className="w-24 h-4 bg-gradient-to-r from-sage-100/80 via-sage-50/80 to-sage-100/80 bg-[length:400%_100%] animate-shimmer rounded"></div>
+            <div className="w-24 h-4 bg-linear-to-r from-sage-100/80 via-sage-50/80 to-sage-100/80 bg-size-[400%_100%] animate-shimmer rounded-sm"></div>
           </div>
 
           {/* Date placeholder */}
           <div className="flex items-center">
-            <div className="w-16 h-3 bg-gradient-to-r from-sage-100/80 via-sage-50/80 to-sage-100/80 bg-[length:400%_100%] animate-shimmer rounded"></div>
+            <div className="w-16 h-3 bg-linear-to-r from-sage-100/80 via-sage-50/80 to-sage-100/80 bg-size-[400%_100%] animate-shimmer rounded-sm"></div>
           </div>
         </div>
       </div>
