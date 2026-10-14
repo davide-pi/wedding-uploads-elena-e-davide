@@ -1,6 +1,132 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+/* v3 default border color was gray-200 (v4: currentcolor): keep the old look */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@theme {
+  --color-sage-50: #f6f7f5;
+  --color-sage-100: #e6eae2;
+  --color-sage-200: #d0d9c9;
+  --color-sage-300: #b1c1a8;
+  --color-sage-400: #92a883;
+  --color-sage-500: #738b63;
+  --color-sage-600: #5c7250;
+  --color-sage-700: #495c41;
+  --color-sage-800: #3c4b37;
+  --color-sage-900: #344030;
+  --color-sage-950: #1a221a;
+
+  --color-beige-50: #faf8f2;
+  --color-beige-100: #f5f0e4;
+  --color-beige-200: #ebe0c9;
+  --color-beige-300: #ddc9a5;
+  --color-beige-400: #cfb183;
+  --color-beige-500: #c39f6a;
+  --color-beige-600: #b8895d;
+  --color-beige-700: #96694a;
+  --color-beige-800: #7a5540;
+  --color-beige-900: #644739;
+  --color-beige-950: #352418;
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Montserrat", sans-serif;
+
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  --animate-slide-up: slideUp 0.5s ease-out;
+  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-shimmer: shimmer 2s infinite linear;
+  --animate-skeleton-pulse: skeletonPulse 1.5s ease-in-out infinite;
+  --animate-photo-loading: photoLoading 1.8s infinite ease-in-out;
+  --animate-pop-in: popIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  --animate-scale-in: scaleIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes slideUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes skeletonPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+  }
+  @keyframes photoLoading {
+    0% { background-position: 0% 0%; opacity: 0.5; }
+    25% { opacity: 0.7; }
+    50% { background-position: 100% 100%; opacity: 0.8; }
+    75% { opacity: 0.7; }
+    100% { background-position: 0% 0%; opacity: 0.5; }
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    70% { transform: scale(1.05); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes scaleIn {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+}
+
+@utility bg-mountains {
+  background-image: url('/background.jpeg');
+}
+
+/* 16:9 aspect ratio helpers (formerly a tailwind.config.js plugin) */
+@utility aspect-w-16 {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+@utility aspect-h-9 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+}
+
+@utility animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+@utility animation-delay-600 {
+  animation-delay: 600ms;
+}
+
+@utility animation-delay-900 {
+  animation-delay: 900ms;
+}
+
+@utility animation-delay-1000 {
+  animation-delay: 1000ms;
+}
+
+@utility animation-delay-1500 {
+  animation-delay: 1500ms;
+}
+
+@utility touch-scale {
+  /* Mobile touch-friendly utilities */
+  transition: transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
 
 @layer base {
     html {
@@ -30,37 +156,6 @@
         input, textarea, select {
             font-size: 16px !important; /* Prevent zoom on iOS */
         }
-    }
-}
-
-@layer utilities {
-    .animation-delay-300 {
-        animation-delay: 300ms;
-    }
-
-    .animation-delay-600 {
-        animation-delay: 600ms;
-    }
-
-    .animation-delay-900 {
-        animation-delay: 900ms;
-    }
-
-    .animation-delay-1000 {
-        animation-delay: 1000ms;
-    }
-
-    .animation-delay-1500 {
-        animation-delay: 1500ms;
-    }
-
-    /* Mobile touch-friendly utilities */
-    .touch-scale {
-        transition: transform 0.2s ease;
-    }
-
-    .touch-scale:active {
-        transform: scale(0.97);
     }
 }
 

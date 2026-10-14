@@ -60,7 +60,7 @@ const LanguageSelector: React.FC = () => {
     <div className="fixed right-4 z-40 pointer-events-none" style={{ top: "calc(70px)" }}>
       <div className="pointer-events-auto" ref={menuRef}>
         <button
-          className="bg-gradient-to-r from-sage-50/90 to-beige-50/90 backdrop-blur-sm p-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 border border-beige-200/50"
+          className="bg-linear-to-r from-sage-50/90 to-beige-50/90 backdrop-blur-xs p-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 border border-beige-200/50"
           aria-label="Select language"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-expanded={isMenuOpen}
@@ -69,7 +69,7 @@ const LanguageSelector: React.FC = () => {
         </button>
 
         <div
-          className={`absolute right-0 mt-2 w-36 py-2 bg-gradient-to-br from-sage-50 to-beige-50/30 backdrop-blur-sm rounded-lg shadow-lg transition-all duration-200 border border-beige-200/50
+          className={`absolute right-0 mt-2 w-36 py-2 bg-linear-to-br from-sage-50 to-beige-50/30 backdrop-blur-xs rounded-lg shadow-lg transition-all duration-200 border border-beige-200/50
             ${isMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}
         >
           {languages.map((lang) => (
