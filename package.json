@@ -21,7 +21,7 @@
     "@types/express": "^5.0.2",
     "@vitest/coverage-v8": "^4.1.10",
     "cloudinary": "^2.7.0",
-    "date-fns": "^2.30.0",
+    "date-fns": "^4.4.0",
     "express": "^5.1.0",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
