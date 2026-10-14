@@ -19,7 +19,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@types/express": "^5.0.2",
-    "@vitest/coverage-v8": "^4.1.10",
+    "@vitest/coverage-v8": "^5.0.3",
     "cloudinary": "^2.7.0",
     "date-fns": "^2.30.0",
     "express": "^5.1.0",
