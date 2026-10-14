@@ -42,7 +42,7 @@ describe("useIntersectionObserver Hook", () => {
   });
   it("initializes with empty visible items array", () => {
     // Setup mock
-    window.IntersectionObserver = vi.fn(() => {
+    window.IntersectionObserver = vi.fn(function () {
       // Return mock implementation
       return {
         observe: vi.fn(),
@@ -67,7 +67,7 @@ describe("useIntersectionObserver Hook", () => {
   it("tracks visible items correctly", () => {
     // Implementation of mock IntersectionObserver
     let mockObserver: MockIntersectionObserver;
-    window.IntersectionObserver = vi.fn((callback) => {
+    window.IntersectionObserver = vi.fn(function (callback) {
       mockObserver = new MockIntersectionObserver(callback);
       return mockObserver as unknown as IntersectionObserver;
     });
@@ -133,14 +133,13 @@ describe("useIntersectionObserver Hook", () => {
     const observeMock = vi.fn();
     const unobserveMock = vi.fn();
 
-    window.IntersectionObserver = vi.fn(
-      () =>
-        ({
-          observe: observeMock,
-          unobserve: unobserveMock,
-          disconnect: vi.fn(),
-        } as unknown as IntersectionObserver)
-    );
+    window.IntersectionObserver = vi.fn(function () {
+      return {
+        observe: observeMock,
+        unobserve: unobserveMock,
+        disconnect: vi.fn(),
+      } as unknown as IntersectionObserver;
+    });
 
     const { result } = renderHook(() => useIntersectionObserver());
 
@@ -164,14 +163,13 @@ describe("useIntersectionObserver Hook", () => {
   it("cleans up observer on unmount", () => {
     const disconnectMock = vi.fn();
 
-    window.IntersectionObserver = vi.fn(
-      () =>
-        ({
-          observe: vi.fn(),
-          unobserve: vi.fn(),
-          disconnect: disconnectMock,
-        } as unknown as IntersectionObserver)
-    );
+    window.IntersectionObserver = vi.fn(function () {
+      return {
+        observe: vi.fn(),
+        unobserve: vi.fn(),
+        disconnect: disconnectMock,
+      } as unknown as IntersectionObserver;
+    });
 
     const { unmount } = renderHook(() => useIntersectionObserver());
 
