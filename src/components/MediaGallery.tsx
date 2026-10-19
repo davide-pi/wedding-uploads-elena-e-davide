@@ -84,7 +84,7 @@ const MediaGallery: React.FC = () => {
       <div className="relative font-serif text-sage-800 mb-6 text-center flex flex-col items-center ">
         <span className="relative inline-block text-2xl md:text-3xl">
           {t('gallery.mediaGallery.line1')}
-          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-beige-300 to-beige-500"></span>
+          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-linear-to-r from-beige-300 to-beige-500"></span>
         </span>
         <span className="relative inline-block text-lg md:text-xl">
           {t('gallery.mediaGallery.line2')}

@@ -15,8 +15,6 @@ export default defineConfig({
         "dist/",
         "src/test/",
         "eslint.config.js",
-        "postcss.config.js",
-        "tailwind.config.js",
         "vite.config.ts",
         "vitest.config.ts",
       ],

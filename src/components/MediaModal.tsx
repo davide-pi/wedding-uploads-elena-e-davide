@@ -40,14 +40,14 @@ const MediaModal: React.FC<MediaModalProps> = ({ media, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-sage-950/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-8 animate-fade-in"
+      className="fixed inset-0 z-50 bg-sage-950/90 backdrop-blur-xs flex items-center justify-center p-4 md:p-8 animate-fade-in"
       onClick={handleBackdropClick}
     >
       <div className="relative max-w-4xl w-full max-h-[90vh] flex flex-col bg-sage-50 rounded-lg overflow-hidden animate-slide-up shadow-2xl border border-beige-200">
         <div className="absolute top-2 right-2 z-10">
           <button
             onClick={onClose}
-            className="bg-sage-500/30 hover:bg-sage-600/40 text-white p-2 rounded-full transition-colors backdrop-blur-sm"
+            className="bg-sage-500/30 hover:bg-sage-600/40 text-white p-2 rounded-full transition-colors backdrop-blur-xs"
           >
             <X className="w-5 h-5" />
           </button>
@@ -55,11 +55,11 @@ const MediaModal: React.FC<MediaModalProps> = ({ media, onClose }) => {
 
         <div className="flex-1 overflow-auto bg-sage-900">
           {media.mediaType === "video" ? (
-            <div className="flex items-center justify-center h-full bg-gradient-to-b from-sage-900/80 to-sage-950/80 w-full p-1">
+            <div className="flex items-center justify-center h-full bg-linear-to-b from-sage-900/80 to-sage-950/80 w-full p-1">
               <video
                 data-testid="media-video"
                 src={media.url}
-                className="w-full h-auto max-h-[70vh] rounded-sm"
+                className="w-full h-auto max-h-[70vh] rounded-xs"
                 controls
                 autoPlay
                 controlsList="nodownload"
@@ -76,7 +76,7 @@ const MediaModal: React.FC<MediaModalProps> = ({ media, onClose }) => {
           )}
         </div>
 
-        <div className="p-4 md:p-6 bg-gradient-to-br from-sage-50 to-beige-50/50">
+        <div className="p-4 md:p-6 bg-linear-to-br from-sage-50 to-beige-50/50">
           {media.caption && (
             <p className="text-sage-800 font-serif font-medium text-lg mb-3 border-b border-beige-200 pb-2">
               {media.caption}
