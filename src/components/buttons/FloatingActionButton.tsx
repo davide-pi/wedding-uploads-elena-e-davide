@@ -88,7 +88,7 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
           onClick={() => setMenuExpanded(!menuExpanded)}
           aria-label={menuExpanded ? t('upload.closeMenu') : t('upload.openMenu')}
           aria-expanded={menuExpanded}
-          className={`w-14 h-14 rounded-full bg-sage-600 text-white flex items-center justify-center shadow-lg hover:bg-sage-700 hover:scale-105 active:scale-95 focus:outline-none transition-all duration-300 transform ${menuExpanded ? 'rotate-45' : 'rotate-0'}`}
+          className={`w-14 h-14 rounded-full bg-sage-600 text-white flex items-center justify-center shadow-lg hover:bg-sage-700 hover:scale-105 active:scale-95 focus:outline-hidden transition-all duration-300 transform ${menuExpanded ? 'rotate-45' : 'rotate-0'}`}
         >
           <Plus className="w-7 h-7" />
         </button>

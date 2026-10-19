@@ -22,7 +22,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     <button
       onClick={onClick}
       aria-label={label}
-      className="w-12 h-12 rounded-full bg-sage-600 text-white flex items-center justify-center shadow-lg hover:bg-sage-700 transition-all transform hover:scale-105 active:rotate-45 active:scale-95 focus:outline-none"
+      className="w-12 h-12 rounded-full bg-sage-600 text-white flex items-center justify-center shadow-lg hover:bg-sage-700 transition-all transform hover:scale-105 active:rotate-45 active:scale-95 focus:outline-hidden"
       title={title || label}
     >
       <Icon className="w-6 h-6" />

@@ -35,13 +35,13 @@ const Notification: React.FC<NotificationProps> = ({ notification, onClose }) =>
 
   return (
     <div className={`flex items-center p-4 mb-3 rounded-lg border ${styleMap[type] || styleMap.info}`}>
-      <div className="flex-shrink-0 mr-2">
+      <div className="shrink-0 mr-2">
         {iconMap[type] || iconMap.info}
       </div>
       <div className="flex-1">{message}</div>
       <button
         type="button"
-        className="ml-auto -mx-1.5 -my-1.5 rounded-lg p-1.5 inline-flex items-center justify-center h-8 w-8 focus:outline-none focus:ring-2 focus:ring-gray-300"
+        className="ml-auto -mx-1.5 -my-1.5 rounded-lg p-1.5 inline-flex items-center justify-center h-8 w-8 focus:outline-hidden focus:ring-2 focus:ring-gray-300"
         onClick={onClose}
       >
         <span className="sr-only">Close</span>

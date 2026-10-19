@@ -30,7 +30,7 @@ function App() {
         <div className="min-h-screen font-serif text-sage-800">
           {/* Fixed background with fade-in effect */}
           <div
-            className={`fixed inset-0 bg-cover bg-center bg-mountains bg-no-repeat z-[0] transition-opacity duration-1000 ${
+            className={`fixed inset-0 bg-cover bg-center bg-mountains bg-no-repeat z-0 transition-opacity duration-1000 ${
               isLoaded ? "opacity-100" : "opacity-0"
             }`}
             style={{
@@ -39,7 +39,7 @@ function App() {
               backgroundColor: "rgba(246, 247, 245, 0.75)"
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-beige-50/90 via-transparent to-sage-50/90"></div>
+            <div className="absolute inset-0 bg-linear-to-b from-beige-50/90 via-transparent to-sage-50/90"></div>
           </div>
 
           {/* Content */}
