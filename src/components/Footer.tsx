@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="py-8 mt-8 border-t border-beige-200 bg-gradient-to-r from-sage-50/70 to-beige-50/70">
+    <footer className="py-8 mt-8 border-t border-beige-200 bg-linear-to-r from-sage-50/70 to-beige-50/70">
       <div className="container mx-auto px-4 text-center">
         <div className="flex justify-center items-center mb-2">
           <span className="text-sage-700 mr-1">{t('footer.captured')}</span>

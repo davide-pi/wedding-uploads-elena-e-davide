@@ -64,7 +64,7 @@ const MediaCard: React.FC<MediaCardProps> = ({
 
   return (
     <div
-      className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-md overflow-hidden cursor-pointer group border border-beige-100 transition-all transform
+      className={`bg-white/95 backdrop-blur-xs rounded-lg shadow-md overflow-hidden cursor-pointer group border border-beige-100 transition-all transform
         ${isVisible ? 'animate-pop-in opacity-100 scale-100' : 'opacity-0 scale-95'}
         hover:shadow-xl hover:scale-[1.01]`}
       onClick={onClick}
@@ -74,7 +74,7 @@ const MediaCard: React.FC<MediaCardProps> = ({
         {!isMediaLoaded && (
           <div className="absolute inset-0 z-10">
             {/* Shimmer background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-sage-100/60 via-beige-200/70 to-sage-100/60 bg-[length:400%_100%] animate-shimmer"></div>
+            <div className="absolute inset-0 bg-linear-to-r from-sage-100/60 via-beige-200/70 to-sage-100/60 bg-size-[400%_100%] animate-shimmer"></div>
 
             {/* Loading spinner */}
             <div className="absolute inset-0 flex items-center justify-center">
@@ -92,14 +92,14 @@ const MediaCard: React.FC<MediaCardProps> = ({
                 style={{ backgroundImage: getPosterUrl() ? `url(${getPosterUrl()})` : undefined }}
               >
                 {/* Video loading animation overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-beige-50/30 to-sage-100/40 animate-photo-loading"></div>
+                <div className="absolute inset-0 bg-linear-to-br from-beige-50/30 to-sage-100/40 animate-photo-loading"></div>
               </div>
             )}
 
             {shouldLoad && (
               <video
                 src={media.url}
-                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105 ${!videoLoaded ? 'opacity-0 scale-[1.03] blur-sm' : 'opacity-100 scale-100 blur-0'}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105 ${!videoLoaded ? 'opacity-0 scale-[1.03] blur-xs' : 'opacity-100 scale-100 blur-[0px]'}`}
                 poster={getPosterUrl()}
                 preload="metadata"
                 controls={false}
@@ -108,7 +108,7 @@ const MediaCard: React.FC<MediaCardProps> = ({
             )}
 
             <div className="absolute inset-0 flex items-center justify-center z-20">
-              <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-beige-600/80 to-beige-700/80 backdrop-blur-sm rounded-full flex items-center justify-center transform transition-all duration-300 group-hover:scale-110 group-hover:from-beige-500/90 group-hover:to-beige-600/90 shadow-lg group-hover:shadow-xl">
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-linear-to-br from-beige-600/80 to-beige-700/80 backdrop-blur-xs rounded-full flex items-center justify-center transform transition-all duration-300 group-hover:scale-110 group-hover:from-beige-500/90 group-hover:to-beige-600/90 shadow-lg group-hover:shadow-xl">
                 <Play className="w-7 h-7 md:w-8 md:h-8 text-white ml-1 transition-transform group-hover:scale-110" />
               </div>
             </div>
@@ -120,7 +120,7 @@ const MediaCard: React.FC<MediaCardProps> = ({
               <img
                 src={thumbnailUrl}
                 alt=""
-                className="absolute inset-0 w-full h-full object-cover blur-sm scale-110"
+                className="absolute inset-0 w-full h-full object-cover blur-xs scale-110"
                 loading="eager"
               />
             )}
@@ -129,7 +129,7 @@ const MediaCard: React.FC<MediaCardProps> = ({
               <img
                 src={media.url}
                 alt={media.caption}
-                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105 ${!imageLoaded ? 'opacity-0 scale-[1.03] blur-sm' : 'opacity-100 scale-100 blur-0'}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105 ${!imageLoaded ? 'opacity-0 scale-[1.03] blur-xs' : 'opacity-100 scale-100 blur-[0px]'}`}
                 loading="lazy"
                 onLoad={() => setImageLoaded(true)}
               />
@@ -137,8 +137,8 @@ const MediaCard: React.FC<MediaCardProps> = ({
           </div>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-sage-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end transform translate-y-1 group-hover:translate-y-0 z-30">
-          <div className="p-3 text-white w-full backdrop-blur-sm bg-gradient-to-r from-beige-800/30 to-sage-900/30">
+        <div className="absolute inset-0 bg-linear-to-t from-sage-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end transform translate-y-1 group-hover:translate-y-0 z-30">
+          <div className="p-3 text-white w-full backdrop-blur-xs bg-linear-to-r from-beige-800/30 to-sage-900/30">
             {media.caption && (
               <p className="font-medium text-sm md:text-base line-clamp-2 font-serif">{media.caption}</p>
             )}
@@ -146,7 +146,7 @@ const MediaCard: React.FC<MediaCardProps> = ({
         </div>
       </div>
 
-      <div className="p-3 bg-gradient-to-br from-sage-50/50 to-beige-50/30">
+      <div className="p-3 bg-linear-to-br from-sage-50/50 to-beige-50/30">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <User className="w-4 h-4 text-beige-600 mr-1" />

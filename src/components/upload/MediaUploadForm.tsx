@@ -138,7 +138,7 @@ const MediaUploadForm: React.FC<MediaUploadFormProps> = ({
                 disabled={isUploading}
                 className={`w-full px-3 py-2 border ${
                   isUploading ? 'border-beige-200 bg-beige-50 text-beige-400' : 'border-beige-300'
-                } rounded-md focus:outline-none focus:ring-1 focus:ring-beige-400 text-sm bg-white`}
+                } rounded-md focus:outline-hidden focus:ring-1 focus:ring-beige-400 text-sm bg-white`}
                 placeholder={t('upload.addCaptionPlaceholder')}
               />
             </div>
@@ -155,7 +155,7 @@ const MediaUploadForm: React.FC<MediaUploadFormProps> = ({
                 disabled={isUploading}
                 className={`w-full px-3 py-2 border ${
                   isUploading ? 'border-beige-200 bg-beige-50 text-beige-400' : 'border-beige-300'
-                } rounded-md focus:outline-none focus:ring-1 focus:ring-beige-400 text-sm bg-white`}
+                } rounded-md focus:outline-hidden focus:ring-1 focus:ring-beige-400 text-sm bg-white`}
                 placeholder={t('upload.enterYourName')}
               />
               {submitterName && (
